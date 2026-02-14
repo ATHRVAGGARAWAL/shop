@@ -29,7 +29,7 @@ A modern, high-performance e-commerce platform built for **DEVKI NANDAN & SONS**
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/shop.git
+   git clone https://github.com/ATHRVAGGARAWAL/shop
    ```
 
 2. Install dependencies:
