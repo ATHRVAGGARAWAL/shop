@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://devki-nandan.vercel.app/sitemap.xml

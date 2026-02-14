@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* stylelint-disable-next-line at-rule-no-unknown */
+@theme {
+  /* Cinematic Color Palette */
+  --color-void-black: #000000;
+  --color-charcoal: #050505;
+  --color-dark-grey: #111111;
+  --color-industrial-blue: #1b365d;
+  --color-industrial-navy: #0a192f;
+  --color-safety-yellow: #fcd116;
+  --color-warm-white: #ffffff;
+  --color-light-glow: rgba(255, 106, 0, 0.4);
+
+  /* Typography Scale */
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Spacing for scroll sections */
+  --section-padding: 8rem;
+  --section-padding-mobile: 4rem;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #0a192f;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Smooth Scroll Animations */
+@keyframes fadeInFromDark {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lampGlow {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 30px rgba(255, 106, 0, 0.6));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 50px rgba(255, 106, 0, 0.8));
+  }
+}
+
+@keyframes lightBeam {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+/* Utility Classes */
+.fade-in-dark {
+  animation: fadeInFromDark 1.2s ease-out forwards;
+}
+
+.lamp-glow {
+  animation: lampGlow 3s ease-in-out infinite;
+}
+
+.light-beam {
+  animation: lightBeam 1.5s ease-out forwards;
+}
+
+/* Industrial Texture Overlay (Subtle) */
+.industrial-texture::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.01) 2px,
+      rgba(255, 255, 255, 0.01) 4px);
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+/* Scroll Progress Indicator */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff6a00, #ff9d00);
+  transform-origin: left;
+  z-index: 9999;
+}
+
+/* Remove default margins and ensure full viewport */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Cinematic Section Spacing */
+section {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Premium Text Glow Effect */
+.text-glow {
+  text-shadow: 0 0 20px rgba(255, 106, 0, 0.3);
+}
+
+/* Smooth Transitions */
+.smooth-transition {
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
