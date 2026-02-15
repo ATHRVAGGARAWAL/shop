@@ -13,6 +13,9 @@ function ShopContent() {
 
     const [activeCategory, setActiveCategory] = useState(initialCategory)
     const [searchQuery, setSearchQuery] = useState('')
+    const [sortBy, setSortBy] = useState('default')
+    const [priceRange, setPriceRange] = useState(5000)
+    const [showInStock, setShowInStock] = useState(false)
 
     useEffect(() => {
         const category = searchParams.get('category')
@@ -21,18 +24,28 @@ function ShopContent() {
         }
     }, [searchParams])
 
-    const filteredProducts = products.filter(product => {
+    let filteredProducts = products.filter(product => {
         const matchesCategory = activeCategory === 'All' ||
-            product.category === activeCategory ||
-            (activeCategory === 'Wires & Cables' && product.category === 'Wires') ||
-            (activeCategory === 'Switchgears' && product.category === 'MCBs') ||
-            (activeCategory === 'Lighting Solutions' && product.category === 'LED Bulbs') ||
-            (activeCategory === 'Conduits & Pipes' && product.category === 'Industrial Fittings')
+            product.category === activeCategory
 
         const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             product.brand.toLowerCase().includes(searchQuery.toLowerCase())
-        return matchesCategory && matchesSearch
+
+        const matchesPrice = product.price <= priceRange
+
+        const matchesStock = !showInStock || product.stock > 0
+
+        return matchesCategory && matchesSearch && matchesPrice && matchesStock
     })
+
+    // Apply sorting
+    if (sortBy === 'price-low') {
+        filteredProducts = [...filteredProducts].sort((a, b) => a.price - b.price)
+    } else if (sortBy === 'price-high') {
+        filteredProducts = [...filteredProducts].sort((a, b) => b.price - a.price)
+    } else if (sortBy === 'name') {
+        filteredProducts = [...filteredProducts].sort((a, b) => a.name.localeCompare(b.name))
+    }
 
     return (
         <main className="flex-grow py-16">
@@ -42,6 +55,12 @@ function ShopContent() {
                     setActiveCategory={setActiveCategory}
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
+                    sortBy={sortBy}
+                    setSortBy={setSortBy}
+                    priceRange={priceRange}
+                    setPriceRange={setPriceRange}
+                    showInStock={showInStock}
+                    setShowInStock={setShowInStock}
                 />
 
                 {filteredProducts.length > 0 ? (

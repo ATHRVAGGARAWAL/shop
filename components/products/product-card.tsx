@@ -3,13 +3,29 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ShoppingBag, Eye } from 'lucide-react'
+import { ShoppingBag, Eye, Heart } from 'lucide-react'
 import { Product } from '@/lib/products'
 import { useCart } from '@/lib/cart-context'
+import { useWishlist } from '@/lib/wishlist-context'
+import { useToast } from '@/lib/toast-context'
 import { Button } from '@/components/ui/button'
 
 export function ProductCard({ product }: { product: Product }) {
     const { addToCart } = useCart()
+    const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
+    const { showToast } = useToast()
+    const inWishlist = isInWishlist(product.id)
+
+    const handleWishlistToggle = (e: React.MouseEvent) => {
+        e.preventDefault()
+        if (inWishlist) {
+            removeFromWishlist(product.id)
+            showToast('Removed from wishlist', 'info')
+        } else {
+            addToWishlist(product)
+            showToast('Added to wishlist!', 'success')
+        }
+    }
 
     return (
         <motion.div
@@ -33,13 +49,33 @@ export function ProductCard({ product }: { product: Product }) {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 />
 
-                {product.stock < 20 && (
-                    <div className="absolute top-3 left-3 z-20">
+                {/* Badges */}
+                <div className="absolute top-3 left-3 z-20 flex flex-col gap-2">
+                    {product.stock < 20 && (
                         <span className="bg-red-500 text-white text-[8px] font-bold px-2 py-1 uppercase tracking-tight rounded-sm">
                             Low Stock
                         </span>
-                    </div>
-                )}
+                    )}
+                    {product.isNew && (
+                        <span className="bg-green-500 text-white text-[8px] font-bold px-2 py-1 uppercase tracking-tight rounded-sm">
+                            New
+                        </span>
+                    )}
+                    {product.isBestseller && (
+                        <span className="bg-amber-500 text-white text-[8px] font-bold px-2 py-1 uppercase tracking-tight rounded-sm">
+                            Bestseller
+                        </span>
+                    )}
+                </div>
+
+                <button
+                    onClick={handleWishlistToggle}
+                    className="absolute top-3 right-3 z-20 p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-all shadow-md active:scale-95"
+                >
+                    <Heart
+                        className={`h-4 w-4 transition-colors ${inWishlist ? 'fill-red-500 text-red-500' : 'text-slate-400'}`}
+                    />
+                </button>
             </Link>
 
             <div className="space-y-1">

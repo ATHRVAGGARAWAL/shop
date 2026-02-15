@@ -9,11 +9,16 @@ import { Container } from '@/components/ui/container'
 import { Button } from '@/components/ui/button'
 import { products } from '@/lib/products'
 import { useCart } from '@/lib/cart-context'
+import { useToast } from '@/lib/toast-context'
+import { RelatedProducts } from '@/components/products/related-products'
+import { ProductReviews } from '@/components/products/product-reviews'
+import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 
 export default function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params)
     const product = products.find(p => p.id === id)
     const { addToCart } = useCart()
+    const { showToast } = useToast()
     const [quantity, setQuantity] = useState(1)
 
     if (!product) {
@@ -27,12 +32,20 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
 
     const handleAddToCart = () => {
         addToCart(product, quantity)
+        showToast(`${quantity}x ${product.name} added to cart!`, 'success')
     }
 
     return (
         <div className="flex flex-col min-h-screen bg-white">
             <main className="flex-grow pt-8 lg:pt-16 pb-24">
                 <Container>
+                    <Breadcrumbs
+                        items={[
+                            { label: 'Shop', href: '/shop' },
+                            { label: product.category, href: `/shop?category=${product.category}` },
+                            { label: product.name }
+                        ]}
+                    />
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-32">
                         {/* Image Section */}
                         <motion.div
@@ -119,11 +132,13 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                                         </p>
                                     </div>
                                 </div>
+                                <ProductReviews />
                             </div>
                         </motion.div>
                     </div>
                 </Container>
             </main>
+            <RelatedProducts currentProduct={product} allProducts={products} />
         </div>
     )
 }

@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { CartProvider } from "@/lib/cart-context";
+import { ToastProvider } from "@/lib/toast-context";
+import { WishlistProvider } from "@/lib/wishlist-context";
 
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -34,13 +36,17 @@ export default function RootLayout({
           "antialiased min-h-screen flex flex-col"
         )}
       >
-        <CartProvider>
-          <Header />
-          <div className="flex-grow">
-            {children}
-          </div>
-          <Footer />
-        </CartProvider>
+        <ToastProvider>
+          <WishlistProvider>
+            <CartProvider>
+              <Header />
+              <div className="flex-grow">
+                {children}
+              </div>
+              <Footer />
+            </CartProvider>
+          </WishlistProvider>
+        </ToastProvider>
       </body>
     </html>
   );
