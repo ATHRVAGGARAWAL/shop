@@ -44,10 +44,4 @@ A modern, high-performance e-commerce platform built for **DEVKI NANDAN & SONS**
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## 📦 Deployment
-
-The project is ready to be deployed on the [Vercel Platform](https://vercel.com/new). Simply connect your GitHub repository to Vercel for automatic CI/CD.
-
----
-
 © 2026 DEVKI NANDAN & SONS. All rights reserved.
