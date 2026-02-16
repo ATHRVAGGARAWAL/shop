@@ -2,7 +2,8 @@ import { Metadata } from 'next'
 import { db } from '@/lib/db'
 import { products } from '@/lib/schema'
 import { eq } from 'drizzle-orm'
-import { ProductDetailContent } from '@/components/products/product-detail-content'
+import ProductDetailContent from '@/components/products/product-detail-content'
+
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 

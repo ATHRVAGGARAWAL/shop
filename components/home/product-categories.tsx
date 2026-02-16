@@ -1,99 +1,124 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Container } from "@/components/ui/container"
 import { Section } from "@/components/ui/section"
-import { Cable, Lightbulb, Zap, Settings, ShieldCheck, Box, ArrowRight } from "lucide-react"
+import { Cable, Lightbulb, Zap, Settings, ShieldCheck, Box, ArrowUpRight } from "lucide-react"
 import { motion } from "framer-motion"
+import { cn } from "@/lib/utils"
 import Link from "next/link"
 
 const categories = [
     {
         title: "Wires & Cables",
         icon: Cable,
-        description: "High-grade copper/aluminum wires for domestic & industrial use.",
-        color: "bg-blue-100 text-blue-600",
+        count: "1,200+ Products",
+        color: "from-blue-500 to-cyan-500",
+        size: "md:col-span-2 md:row-span-2",
+        image: "https://images.unsplash.com/photo-1558444479-5c742c3d10a3?auto=format&fit=crop&q=80&w=600"
     },
     {
         title: "Switchgears",
         icon: Zap,
-        description: "MCBs, RCCBs, and distribution boards for complete safety.",
-        color: "bg-yellow-100 text-yellow-600",
+        count: "800+ Products",
+        color: "from-yellow-400 to-orange-500",
+        size: "md:col-span-2 md:row-span-1",
+        image: "https://images.unsplash.com/photo-1498084393753-b411b2d26b34?auto=format&fit=crop&q=80&w=600"
     },
     {
-        title: "Lighting Solutions",
+        title: "Lighting",
         icon: Lightbulb,
-        description: "Energy-efficient LED panels, floodlights, and street lights.",
-        color: "bg-amber-100 text-amber-600",
+        count: "2,500+ Products",
+        color: "from-amber-300 to-yellow-500",
+        size: "md:col-span-1 md:row-span-1",
+        image: "https://images.unsplash.com/photo-1517076731070-13c65bcb2e8a?auto=format&fit=crop&q=80&w=600"
     },
     {
-        title: "Conduits & Pipes",
-        icon: Box,
-        description: "PVC & steel conduits ensuring long-lasting protection.",
-        color: "bg-slate-100 text-slate-600",
-    },
-    {
-        title: "Industrial Fittings",
+        title: "Industrial",
         icon: Settings,
-        description: "Heavy-duty plugs, sockets, and cable glands.",
-        color: "bg-indigo-100 text-indigo-600",
+        count: "450+ Products",
+        color: "from-indigo-500 to-purple-600",
+        size: "md:col-span-1 md:row-span-2",
+        image: "https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&q=80&w=600"
     },
     {
-        title: "Safety Accessories",
+        title: "Conduits",
+        icon: Box,
+        count: "300+ Products",
+        color: "from-slate-400 to-slate-600",
+        size: "md:col-span-2 md:row-span-1",
+        image: "https://images.unsplash.com/photo-1544724569-5f546fa662b5?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+        title: "Safety",
         icon: ShieldCheck,
-        description: "Earthing materials, tapes, and protective gear.",
-        color: "bg-green-100 text-green-600",
+        count: "150+ Products",
+        color: "from-green-400 to-emerald-600",
+        size: "md:col-span-1 md:row-span-1",
+        image: "https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&q=80&w=600"
     },
 ]
 
 export function ProductCategories() {
     return (
-        <Section id="products" className="bg-slate-50 relative overflow-hidden">
-            {/* Decorative background element */}
-            <div className="absolute -top-24 -right-24 w-96 h-96 bg-industrial-blue/5 rounded-full blur-3xl pointer-events-none" />
-
+        <Section id="categories" className="bg-white overflow-hidden py-32">
             <Container>
-                <div className="text-center mb-12">
-                    <h2 className="text-3xl font-extrabold text-industrial-blue tracking-tight uppercase sm:text-4xl mb-3">
-                        Shop by Category
-                    </h2>
-                    <p className="text-slate-500 max-w-2xl mx-auto font-medium">
-                        Comprehensive electrical solutions for residential, commercial, and industrial requirements.
+                <div className="flex flex-col md:flex-row items-center md:items-end justify-between mb-20 gap-8 text-center md:text-left">
+                    <div className="max-w-2xl mx-auto md:mx-0">
+                        <div className="flex items-center gap-3 mb-6 justify-center md:justify-start">
+                            <div className="w-12 h-1 bg-industrial-blue rounded-full" />
+                            <span className="text-industrial-blue text-xs font-black uppercase tracking-[0.3em]">Master Collections</span>
+                        </div>
+                        <h2 className="text-5xl md:text-7xl font-black text-industrial-blue tracking-tighter uppercase leading-[0.9]">
+                            Advanced <br /> <span className="text-accent-blue italic">Categories.</span>
+                        </h2>
+                    </div>
+                    <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] max-w-[200px] border-l border-slate-200 pl-6 leading-relaxed mx-auto md:mx-0 hidden md:block">
+                        Precision-engineered solutions for high-voltage infrastructure and retail excellence.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[250px]">
                     {categories.map((category, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
+                            transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                            className={cn(
+                                "group relative rounded-[2.5rem] overflow-hidden border border-slate-100 hover:modern-shadow transition-all duration-700",
+                                category.size
+                            )}
                         >
-                            <Link href={`/shop?category=${encodeURIComponent(category.title)}`}>
-                                <Card className="h-full border-none shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-500 group cursor-pointer bg-white overflow-hidden relative">
-                                    <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:scale-110 group-hover:opacity-[0.08] transition-all duration-700">
-                                        <category.icon className="h-24 w-24" />
-                                    </div>
+                            <Link href={`/shop?category=${encodeURIComponent(category.title)}`} className="block h-full w-full relative">
+                                {/* Background Image/Gradient */}
+                                <div className="absolute inset-0">
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+                                    <img src={category.image} alt={category.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                                </div>
 
-                                    <CardHeader className="relative z-10 pb-2">
-                                        <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 ${category.color} group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-sm shadow-black/5`}>
+                                <div className="absolute inset-0 z-20 p-8 flex flex-col justify-between">
+                                    <div className="flex justify-between items-start">
+                                        <div className={cn(
+                                            "w-14 h-14 rounded-2xl flex items-center justify-center text-white modern-shadow transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12",
+                                            "bg-gradient-to-br " + category.color
+                                        )}>
                                             <category.icon className="h-7 w-7" />
                                         </div>
-                                        <CardTitle className="text-xl font-black text-industrial-blue uppercase tracking-tight group-hover:text-amber-600 transition-colors">
-                                            {category.title}
-                                        </CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="relative z-10 pt-0">
-                                        <p className="text-slate-500 text-sm leading-relaxed font-semibold mb-6">
-                                            {category.description}
-                                        </p>
-                                        <div className="flex items-center gap-2 text-industrial-blue font-bold text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 transition-all duration-500">
-                                            View Collection <ArrowRight className="h-3 w-3" />
+                                        <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all backdrop-blur-sm bg-white/10">
+                                            <ArrowUpRight className="h-4 w-4 text-white" />
                                         </div>
-                                    </CardContent>
-                                </Card>
+                                    </div>
+
+                                    <div>
+                                        <div className="text-[9px] font-black uppercase tracking-[0.2em] text-white/60 group-hover:text-white transition-colors mb-2">
+                                            {category.count}
+                                        </div>
+                                        <h3 className="text-2xl font-black uppercase tracking-tight leading-none text-white">
+                                            {category.title}
+                                        </h3>
+                                    </div>
+                                </div>
                             </Link>
                         </motion.div>
                     ))}
