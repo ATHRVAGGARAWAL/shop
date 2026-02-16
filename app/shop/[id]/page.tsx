@@ -6,6 +6,14 @@ import { ProductDetailContent } from '@/components/products/product-detail-conte
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
+export async function generateStaticParams() {
+    const allProducts = await db.select({ id: products.id }).from(products).all()
+    return allProducts.map((product) => ({
+        id: product.id,
+    }))
+}
+
+
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
     const { id } = await params
     const product = await db.select().from(products).where(eq(products.id, id)).get()
