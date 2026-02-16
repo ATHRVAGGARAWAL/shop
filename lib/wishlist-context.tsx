@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { Product } from './products'
+import { Product } from '@/lib/types'
 
 interface WishlistContextType {
     wishlist: Product[]
@@ -19,13 +19,19 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         const saved = localStorage.getItem('wishlist')
         if (saved) {
-            setWishlist(JSON.parse(saved))
+            try {
+                setWishlist(JSON.parse(saved))
+            } catch (e) {
+                console.error('Failed to parse wishlist', e)
+            }
         }
     }, [])
 
     // Save to localStorage whenever wishlist changes
     useEffect(() => {
-        localStorage.setItem('wishlist', JSON.stringify(wishlist))
+        if (wishlist.length > 0) {
+            localStorage.setItem('wishlist', JSON.stringify(wishlist))
+        }
     }, [wishlist])
 
     const addToWishlist = (product: Product) => {

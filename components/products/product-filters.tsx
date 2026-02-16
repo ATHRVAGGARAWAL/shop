@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Category } from "@/lib/products"
+// import { Category } from "@/lib/products"
 import { Search, ChevronDown } from "lucide-react"
 import { useState } from "react"
 
@@ -18,7 +18,7 @@ interface ProductFiltersProps {
     setShowInStock: (show: boolean) => void;
 }
 
-const categories: (Category | 'All')[] = ['All', 'LED Bulbs', 'Smart Lighting', 'Tube Lights', 'Ceiling Lights', 'Spotlights'];
+const categories = ['All', 'LED Bulbs', 'Smart Lighting', 'Tube Lights', 'Ceiling Lights', 'Spotlights'];
 
 export function ProductFilters({
     activeCategory,

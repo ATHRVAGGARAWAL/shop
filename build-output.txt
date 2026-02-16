@@ -1,0 +1,31 @@
+Γû▓ Next.js 16.1.6 (Turbopack)
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./app/shop/[id]/page.tsx:19:23
+Ecmascript file had an error
+  17 | import { Metadata } from 'next'
+  18 |
+> 19 | export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+     |                       ^^^^^^^^^^^^^^^^
+  20 |     const { id } = await params
+  21 |     const product = products.find(p => p.id === id)
+  22 |
+
+You are attempting to export "generateMetadata" from a component marked with "use client", which is disallowed. Either remove the export, or the "use client" directive. Read more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/shop/[id]/page.tsx [Client Component Browser]
+    ./app/shop/[id]/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/shop/[id]/page.tsx [Client Component SSR]
+    ./app/shop/[id]/page.tsx [Server Component]
+
+
+    at <unknown> (./app/shop/[id]/page.tsx:19:23)

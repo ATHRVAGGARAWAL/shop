@@ -1,7 +1,7 @@
 "use client"
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Product } from '@/lib/products';
+import { Product } from '@/lib/types';
 
 interface CartItem extends Product {
     quantity: number;
@@ -53,6 +53,23 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    // Load cart from localStorage on mount
+    useEffect(() => {
+        const saved = localStorage.getItem('cart')
+        if (saved) {
+            try {
+                setCart(JSON.parse(saved))
+            } catch (e) {
+                console.error('Failed to parse cart', e)
+            }
+        }
+    }, [])
+
+    // Save to localStorage whenever cart changes
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cart))
+    }, [cart])
 
     return (
         <CartContext.Provider value={{

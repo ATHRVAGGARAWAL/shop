@@ -1,0 +1,89 @@
+
+> shop@0.1.0 lint
+> eslint
+
+
+C:\Users\ATHRV\Desktop\shop\app\shop\page.tsx
+  23:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\ATHRV\Desktop\shop\app\shop\page.tsx:23:13
+  21 |         const category = searchParams.get('category')
+  22 |         if (category) {
+> 23 |             setActiveCategory(category)
+     |             ^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  24 |         }
+  25 |     }, [searchParams, setActiveCategory])
+  26 |  react-hooks/set-state-in-effect
+
+C:\Users\ATHRV\Desktop\shop\components\cart\cart-drawer.tsx
+   7:8    warning  'Image' is defined but never used                                @typescript-eslint/no-unused-vars
+  94:104  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\ATHRV\Desktop\shop\components\home\about-section.tsx
+  46:97  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\ATHRV\Desktop\shop\components\home\brand-marquee.tsx
+  3:10  warning  'Container' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ATHRV\Desktop\shop\components\home\contact-section.tsx
+  24:28  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\ATHRV\Desktop\shop\components\home\hero.tsx
+   8:10  warning  'ArrowRight' is defined but never used                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+   8:22  warning  'ChevronRight' is defined but never used                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+  16:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\ATHRV\Desktop\shop\components\home\reviews-section.tsx
+  83:33  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  83:52  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\ATHRV\Desktop\shop\components\layout\footer.tsx
+  3:10  warning  'Zap' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ATHRV\Desktop\shop\components\layout\header.tsx
+  5:19  warning  'Phone' is defined but never used   @typescript-eslint/no-unused-vars
+  5:26  warning  'Zap' is defined but never used     @typescript-eslint/no-unused-vars
+  5:52  warning  'MapPin' is defined but never used  @typescript-eslint/no-unused-vars
+  7:10  warning  'Button' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ATHRV\Desktop\shop\components\products\product-card.tsx
+   6:10  warning  'ShoppingBag' is defined but never used         @typescript-eslint/no-unused-vars
+   6:23  warning  'Eye' is defined but never used                 @typescript-eslint/no-unused-vars
+  14:13  warning  'addToCart' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ATHRV\Desktop\shop\components\products\product-filters.tsx
+  5:10  warning  'Search' is defined but never used    @typescript-eslint/no-unused-vars
+  6:10  warning  'useState' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ATHRV\Desktop\shop\lib\cart-context.tsx
+  3:54  warning  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ATHRV\Desktop\shop\lib\whatsapp.ts
+  8:11  warning  'businessNumber' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ATHRV\Desktop\shop\lib\wishlist-context.tsx
+  22:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\ATHRV\Desktop\shop\lib\wishlist-context.tsx:22:13
+  20 |         const saved = localStorage.getItem('wishlist')
+  21 |         if (saved) {
+> 22 |             setWishlist(JSON.parse(saved))
+     |             ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  23 |         }
+  24 |     }, [])
+  25 |  react-hooks/set-state-in-effect
+
+Γ£û 24 problems (7 errors, 17 warnings)
+

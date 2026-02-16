@@ -1,6 +1,5 @@
 "use client"
 
-import { products } from "@/lib/products"
 import { ProductCard } from "@/components/products/product-card"
 import { Container } from "@/components/ui/container"
 import { Section } from "@/components/ui/section"
@@ -8,8 +7,13 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { Product } from "@/lib/types"
 
-export function FeaturedProducts() {
+interface FeaturedProductsProps {
+    products: Product[]
+}
+
+export function FeaturedProducts({ products }: FeaturedProductsProps) {
     // Show first 4 products as featured
     const featuredProducts = products.slice(0, 4)
 

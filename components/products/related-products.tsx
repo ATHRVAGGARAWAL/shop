@@ -1,38 +1,17 @@
 "use client"
 
 import { motion } from 'framer-motion'
-import { Product } from '@/lib/products'
+// import { Product } from '@/lib/products' // Remove this import
+import { Product } from '@/lib/types'
 import { ProductCard } from '@/components/products/product-card'
 import { Container } from '@/components/ui/container'
 
 interface RelatedProductsProps {
-    currentProduct: Product
-    allProducts: Product[]
+    relatedProducts: Product[]
 }
 
-export function RelatedProducts({ currentProduct, allProducts }: RelatedProductsProps) {
-    // Get related products from the same category, excluding current product
-    const relatedProducts = allProducts
-        .filter(p =>
-            p.category === currentProduct.category &&
-            p.id !== currentProduct.id
-        )
-        .slice(0, 4)
-
-    // If not enough products in same category, add products from other categories
-    if (relatedProducts.length < 4) {
-        const otherProducts = allProducts
-            .filter(p =>
-                p.category !== currentProduct.category &&
-                p.id !== currentProduct.id &&
-                !relatedProducts.includes(p)
-            )
-            .slice(0, 4 - relatedProducts.length)
-
-        relatedProducts.push(...otherProducts)
-    }
-
-    if (relatedProducts.length === 0) return null
+export function RelatedProducts({ relatedProducts }: RelatedProductsProps) {
+    if (!relatedProducts || relatedProducts.length === 0) return null
 
     return (
         <section className="py-16 bg-slate-50/30">

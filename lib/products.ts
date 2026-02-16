@@ -17,17 +17,19 @@ export interface Product {
 export const products: Product[] = [
     {
         id: 'philips-9w-led-b22',
-        name: 'Philips 9W LED Bulb (Cool Daylight)',
-        description: 'Energy-efficient 9W LED bulb with B22 base, providing bright and cool daylight illumination for everyday use.',
+        name: 'Philips AceSaver 9W LED Bulb (Golden Yellow)',
+        description: 'Energy-efficient 9W AceSaver LED bulb with E27 base and EyeComfort technology. Provides warm golden yellow illumination with up to 87% energy saving.',
         price: 99.00,
         category: 'LED Bulbs',
-        image: 'https://images.philips.com/is/image/PhilipsConsumer/929002389613-IMS-en_IN?$jpglarge$&wid=800',
+        image: 'https://rukminim2.flixcart.com/image/832/832/xif0q/bulb/n/g/x/-original-imah4zyfhfwxqhtc.jpeg',
         brand: 'Philips',
         specifications: {
             'Wattage': '9W',
-            'Base': 'B22',
-            'Color': '6500K (Cool Daylight)',
-            'Lumens': '900lm'
+            'Base': 'E27',
+            'Color': '3000K (Golden Yellow)',
+            'Lumens': '825lm',
+            'Energy Saving': 'Up to 87%',
+            'Technology': 'EyeComfort'
         },
         stock: 500,
         isBestseller: true
@@ -82,18 +84,19 @@ export const products: Product[] = [
         stock: 150
     },
     {
-        id: 'philips-slimline-batten-20w',
-        name: 'Philips Slimline Advance LED Batten 20W',
-        description: 'Sleek and slim 20W LED batten providing uniform, glare-free light. Perfect replacement for traditional tubelights.',
-        price: 349.00,
+        id: 'philips-starbright-batten-40w',
+        name: 'Philips StarBright LED Batten 40W',
+        description: 'Transform your space with a wider, sleeker and brighter batten. 40W StarBright LED batten with 4000 lumens for superior illumination in homes and offices.',
+        price: 649.00,
         category: 'Tube Lights',
-        image: 'https://images.philips.com/is/image/PhilipsConsumer/919215850259-IMS-en_IN?$jpglarge$&wid=800',
+        image: 'https://rukminim2.flixcart.com/image/832/832/xif0q/tube-light/t/n/1/-original-imah2ky9fhbkgzty.jpeg',
         brand: 'Philips',
         specifications: {
-            'Wattage': '20W',
+            'Wattage': '40W',
             'Length': '4 Feet',
-            'Color': '6500K',
-            'Material': 'Polycarbonate'
+            'Lumens': '4000lm',
+            'Color': '6500K (Cool Daylight)',
+            'Design': '2x Wider, 2x Brighter, 3x Sleek'
         },
         stock: 300
     },

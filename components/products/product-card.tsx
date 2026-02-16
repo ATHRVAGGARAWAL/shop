@@ -1,16 +1,20 @@
 "use client"
 
-import Image from 'next/image'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { Product } from '@/lib/types'
 import { ShoppingBag, Eye, Heart } from 'lucide-react'
-import { Product } from '@/lib/products'
 import { useCart } from '@/lib/cart-context'
 import { useWishlist } from '@/lib/wishlist-context'
 import { useToast } from '@/lib/toast-context'
 import { Button } from '@/components/ui/button'
 
-export function ProductCard({ product }: { product: Product }) {
+interface ProductCardProps {
+    product: Product
+}
+
+export function ProductCard({ product }: ProductCardProps) {
     const { addToCart } = useCart()
     const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
     const { showToast } = useToast()
@@ -25,6 +29,12 @@ export function ProductCard({ product }: { product: Product }) {
             addToWishlist(product)
             showToast('Added to wishlist!', 'success')
         }
+    }
+
+    const handleAddToCart = (e: React.MouseEvent) => {
+        e.preventDefault()
+        addToCart(product, 1)
+        showToast('Added to cart!', 'success')
     }
 
     return (
@@ -68,14 +78,22 @@ export function ProductCard({ product }: { product: Product }) {
                     )}
                 </div>
 
-                <button
-                    onClick={handleWishlistToggle}
-                    className="absolute top-3 right-3 z-20 p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-all shadow-md active:scale-95"
-                >
-                    <Heart
-                        className={`h-4 w-4 transition-colors ${inWishlist ? 'fill-red-500 text-red-500' : 'text-slate-400'}`}
-                    />
-                </button>
+                <div className="absolute top-3 right-3 z-20 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
+                    <button
+                        onClick={handleWishlistToggle}
+                        className="p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-all shadow-md active:scale-95"
+                    >
+                        <Heart
+                            className={`h-4 w-4 transition-colors ${inWishlist ? 'fill-red-500 text-red-500' : 'text-slate-400'}`}
+                        />
+                    </button>
+                    <button
+                        onClick={handleAddToCart}
+                        className="p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-all shadow-md active:scale-95"
+                    >
+                        <ShoppingBag className="h-4 w-4 text-slate-400 hover:text-industrial-blue" />
+                    </button>
+                </div>
             </Link>
 
             <div className="space-y-1">
