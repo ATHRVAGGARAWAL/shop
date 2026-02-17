@@ -1,0 +1,48 @@
+
+> shop@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env
+
+ΓÜá The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 3.6s
+  Running TypeScript ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/25) ...
+  Generating static pages using 11 workers (6/25) 
+  Generating static pages using 11 workers (12/25) 
+  Generating static pages using 11 workers (18/25) 
+Γ£ô Generating static pages using 11 workers (25/25) in 746.3ms
+  Finalizing page optimization ...
+
+Route (app)
+Γöî Γùï /
+Γö£ Γùï /_not-found
+Γö£ Γùï /admin
+Γö£ Γùï /admin/login
+Γö£ Γùï /admin/orders
+Γö£ Γùï /admin/products
+Γö£ ╞Æ /admin/products/[id]/edit
+Γö£ Γùï /admin/products/new
+Γö£ ╞Æ /api/auth/login
+Γö£ ╞Æ /api/auth/logout
+Γö£ Γùï /checkout
+Γö£ Γùï /checkout/success
+Γö£ Γùï /robots.txt
+Γö£ Γùï /shop
+Γö£ ΓùÅ /shop/[id]
+Γöé Γö£ /shop/philips-10w-t-bulb
+Γöé Γö£ /shop/philips-9w-led-b22
+Γöé Γö£ /shop/philips-dome-ceiling-light
+Γöé Γöö [+6 more paths]
+Γöö Γùï /sitemap.xml
+
+
+╞Æ Proxy (Middleware)
+
+Γùï  (Static)   prerendered as static content
+ΓùÅ  (SSG)      prerendered as static HTML (uses generateStaticParams)
+╞Æ  (Dynamic)  server-rendered on demand
+

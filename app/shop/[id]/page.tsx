@@ -2,12 +2,13 @@ import { Metadata } from 'next'
 import { db } from '@/lib/db'
 import { products } from '@/lib/schema'
 import { eq } from 'drizzle-orm'
-import { ProductDetailContent } from '@/components/products/product-detail-content'
+import ProductDetailContent from '@/components/products/product-detail-content'
+
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
 export async function generateStaticParams() {
-    const allProducts = await db.select().from(products).all()
+    const allProducts = await db.select({ id: products.id }).from(products).all()
     return allProducts.map((product) => ({
         id: product.id,
     }))

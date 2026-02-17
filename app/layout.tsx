@@ -8,12 +8,14 @@ import { WishlistProvider } from "@/lib/wishlist-context";
 
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { BottomNav } from "@/components/layout/bottom-nav";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
+
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://devkinandanandsons.com'),
@@ -113,8 +115,10 @@ export default function RootLayout({
               <div className="flex-grow">
                 {children}
               </div>
+              <BottomNav />
               <Footer />
             </CartProvider>
+
           </WishlistProvider>
         </ToastProvider>
       </body>

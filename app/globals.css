@@ -3,7 +3,7 @@
 
 /* stylelint-disable-next-line at-rule-no-unknown */
 @theme {
-  /* Cinematic Color Palette */
+  /* Cinematic & Modern Color Palette */
   --color-void-black: #000000;
   --color-charcoal: #050505;
   --color-dark-grey: #111111;
@@ -13,14 +13,24 @@
   --color-warm-white: #ffffff;
   --color-light-glow: rgba(255, 106, 0, 0.4);
 
+  /* Modern UI Colors */
+  --color-accent-blue: #3b82f6;
+  --color-accent-blue-soft: rgba(59, 130, 246, 0.1);
+  --color-glass: rgba(255, 255, 255, 0.7);
+  --color-glass-dark: rgba(0, 0, 0, 0.6);
+
   /* Typography Scale */
   --font-display: 'Playfair Display', serif;
   --font-body: 'Inter', system-ui, sans-serif;
 
-  /* Spacing for scroll sections */
+  /* Spacing & Borders */
   --section-padding: 8rem;
   --section-padding-mobile: 4rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-full: 9999px;
 }
+
 
 :root {
   --background: #ffffff;
@@ -132,7 +142,88 @@ section {
   text-shadow: 0 0 20px rgba(255, 106, 0, 0.3);
 }
 
-/* Smooth Transitions */
+/* Flowy Entrance Animations */
+@keyframes flowyUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes flowyFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-flowy-up {
+  animation: flowyUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-flowy-fade {
+  animation: flowyFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Glassmorphism Utilities */
+.glass {
+  background: var(--color-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: var(--color-glass-dark);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Modern Shadow */
+.modern-shadow {
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.08);
+}
+
+.modern-shadow-hover:hover {
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Smooth Transitions Override */
 .smooth-transition {
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Vertical Text Utility */
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Subtle Gradient Text */
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.4) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
