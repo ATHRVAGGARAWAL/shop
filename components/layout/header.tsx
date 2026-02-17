@@ -2,9 +2,8 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X, Phone, Zap, Search, ShoppingBag, MapPin } from "lucide-react"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
+import { Menu, X, Search, ShoppingBag } from "lucide-react"
+import { useEffect, useState } from "react"
 import { Container } from "@/components/ui/container"
 import { useCart } from "@/lib/cart-context"
 import { CartDrawer } from "@/components/cart/cart-drawer"
@@ -12,8 +11,14 @@ import { CartDrawer } from "@/components/cart/cart-drawer"
 export function Header() {
     const [isOpen, setIsOpen] = useState(false)
     const [isCartOpen, setIsCartOpen] = useState(false)
+    const [isMounted, setIsMounted] = useState(false)
 
     const { totalItems } = useCart()
+
+    // Avoid hydration mismatch when cart is restored from localStorage on the client
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
 
     const navLinks = [
         { name: "Home", href: "/" },
@@ -71,7 +76,7 @@ export function Header() {
                                 className="text-industrial-blue hover:text-industrial-blue/80 p-2 relative"
                             >
                                 <ShoppingBag className="h-5 w-5 stroke-[2.5px]" />
-                                {totalItems > 0 && (
+                                {isMounted && totalItems > 0 && (
                                     <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-industrial-blue text-[10px] font-bold text-white border-2 border-white">
                                         {totalItems}
                                     </span>
@@ -87,7 +92,7 @@ export function Header() {
                             className="text-slate-700 p-2 relative"
                         >
                             <ShoppingBag className="h-6 w-6" />
-                            {totalItems > 0 && (
+                            {isMounted && totalItems > 0 && (
                                 <span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-industrial-blue text-[10px] font-bold text-white">
                                     {totalItems}
                                 </span>

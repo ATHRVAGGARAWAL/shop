@@ -58,9 +58,10 @@ export default function CheckoutPage() {
                 clearCart()
                 router.push(`/checkout/success?id=${result.orderId}`)
             }
-        } catch (error: any) {
+        } catch (error) {
             console.error('Order error:', error)
-            showToast(error.message || 'Failed to place order', 'error')
+            const message = error instanceof Error ? error.message : 'Failed to place order'
+            showToast(message, 'error')
         } finally {
             setIsSubmitting(false)
         }

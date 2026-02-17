@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { createProduct, updateProduct } from '@/lib/actions/products';
-import { Loader2, Upload, X } from 'lucide-react';
+import type { Product } from '@/lib/types';
+import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 
 type ProductFormData = {
@@ -21,7 +22,7 @@ type ProductFormData = {
 };
 
 type ProductFormProps = {
-    product?: any; // Replace with proper type from schema
+    product?: Product;
     isEdit?: boolean;
 };
 
@@ -40,7 +41,19 @@ export default function ProductForm({ product, isEdit = false }: ProductFormProp
             stock: product?.stock || 0,
             isNew: product?.isNew || false,
             isBestseller: product?.isBestseller || false,
-            specifications: product ? JSON.stringify(product.specifications, null, 2) : '{\n  "Wattage": "9W",\n  "Color": "Cool Day Light"\n}',
+            specifications: product
+                ? (() => {
+                    try {
+                        const specs = product.specifications as unknown;
+                        if (typeof specs === 'string') {
+                            return JSON.stringify(JSON.parse(specs), null, 2);
+                        }
+                        return JSON.stringify(specs, null, 2);
+                    } catch {
+                        return String(product.specifications);
+                    }
+                })()
+                : '{\n  "Wattage": "9W",\n  "Color": "Cool Day Light"\n}',
         },
     });
 

@@ -13,19 +13,17 @@ interface WishlistContextType {
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined)
 
 export function WishlistProvider({ children }: { children: ReactNode }) {
-    const [wishlist, setWishlist] = useState<Product[]>([])
-
-    // Load wishlist from localStorage on mount
-    useEffect(() => {
-        const saved = localStorage.getItem('wishlist')
-        if (saved) {
-            try {
-                setWishlist(JSON.parse(saved))
-            } catch (e) {
-                console.error('Failed to parse wishlist', e)
-            }
+    const [wishlist, setWishlist] = useState<Product[]>(() => {
+        if (typeof window === 'undefined') return []
+        const saved = window.localStorage.getItem('wishlist')
+        if (!saved) return []
+        try {
+            return JSON.parse(saved) as Product[]
+        } catch (e) {
+            console.error('Failed to parse wishlist', e)
+            return []
         }
-    }, [])
+    })
 
     // Save to localStorage whenever wishlist changes
     useEffect(() => {

@@ -5,8 +5,6 @@ interface CartItem extends Product {
 }
 
 export function generateWhatsAppMessage(cart: CartItem[], totalPrice: number): string {
-    const businessNumber = '919418033069' // Replace with actual business WhatsApp number
-
     let message = '🛒 *New Order Request*\n\n'
     message += '📦 *Items:*\n'
 

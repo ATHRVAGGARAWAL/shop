@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useState } from 'react'
+import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import { Container } from '@/components/ui/container'
 import { ProductCard } from '@/components/products/product-card'
 import { ProductFilters } from '@/components/products/product-filters'
@@ -13,24 +13,31 @@ interface ShopContentProps {
 
 export default function ShopContent({ initialProducts }: ShopContentProps) {
     const searchParams = useSearchParams()
-    const initialCategory = searchParams.get('category') || 'All'
+    const router = useRouter()
+    const pathname = usePathname()
 
-    const [activeCategory, setActiveCategory] = useState(initialCategory)
+    const activeCategoryFromUrl = searchParams.get('category') || 'All'
     const [searchQuery, setSearchQuery] = useState('')
     const [sortBy, setSortBy] = useState('default')
     const [priceRange, setPriceRange] = useState(5000)
     const [showInStock, setShowInStock] = useState(false)
 
-    useEffect(() => {
-        const category = searchParams.get('category')
-        if (category) {
-            setActiveCategory(category)
+    const setActiveCategory = (category: string) => {
+        const params = new URLSearchParams(searchParams.toString())
+
+        if (category === 'All') {
+            params.delete('category')
+        } else {
+            params.set('category', category)
         }
-    }, [searchParams, setActiveCategory])
+
+        const queryString = params.toString()
+        router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false })
+    }
 
     let filteredProducts = initialProducts.filter(product => {
-        const matchesCategory = activeCategory === 'All' ||
-            product.category === activeCategory
+        const matchesCategory = activeCategoryFromUrl === 'All' ||
+            product.category === activeCategoryFromUrl
 
         const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             product.brand.toLowerCase().includes(searchQuery.toLowerCase())
@@ -55,7 +62,7 @@ export default function ShopContent({ initialProducts }: ShopContentProps) {
         <main className="flex-grow py-16">
             <Container>
                 <ProductFilters
-                    activeCategory={activeCategory}
+                    activeCategory={activeCategoryFromUrl}
                     setActiveCategory={setActiveCategory}
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}

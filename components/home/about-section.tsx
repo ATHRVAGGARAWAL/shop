@@ -43,7 +43,7 @@ export function AboutSection() {
                         </p>
                         <p className="text-warm-white/70 leading-relaxed">
                             We believe in honest business, quality products, and lasting relationships.
-                            Every wire, every switch, every fitting we supply carries our family's commitment
+                            Every wire, every switch, every fitting we supply carries our family&apos;s commitment
                             to excellence.
                         </p>
                     </motion.div>

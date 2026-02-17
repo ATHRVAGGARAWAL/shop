@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Zap, MapPin, Phone, Mail, Facebook, Twitter, Linkedin, Instagram } from "lucide-react"
+import { MapPin, Phone, Mail, Facebook, Twitter, Linkedin, Instagram } from "lucide-react"
 import { Container } from "@/components/ui/container"
 
 export function Footer() {

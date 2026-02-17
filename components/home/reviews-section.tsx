@@ -80,7 +80,7 @@ export function ReviewsSection() {
 
                             {/* Testimonial Text */}
                             <p className="text-white/70 text-lg leading-relaxed mb-10 italic font-light text-center">
-                                "{testimonial.text}"
+                                &ldquo;{testimonial.text}&rdquo;
                             </p>
 
                             {/* Author */}

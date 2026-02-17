@@ -21,7 +21,7 @@ export const products: Product[] = [
         description: 'Energy-efficient 9W AceSaver LED bulb with E27 base and EyeComfort technology. Provides warm golden yellow illumination with up to 87% energy saving.',
         price: 99.00,
         category: 'LED Bulbs',
-        image: 'https://rukminim2.flixcart.com/image/832/832/xif0q/bulb/n/g/x/-original-imah4zyfhfwxqhtc.jpeg',
+        image: 'https://via.placeholder.com/800x800.png?text=Philips+Bulb',
         brand: 'Philips',
         specifications: {
             'Wattage': '9W',
@@ -40,7 +40,7 @@ export const products: Product[] = [
         description: 'Innovative T-shaped LED bulb with a wider light spread and flexible swivelling head for customizable lighting.',
         price: 299.00,
         category: 'LED Bulbs',
-        image: 'https://images.philips.com/is/image/PhilipsConsumer/929001955301-IMS-en_IN?$jpglarge$&wid=800',
+        image: 'https://via.placeholder.com/800x800.png?text=T-Bulb',
         brand: 'Philips',
         specifications: {
             'Wattage': '10W',
@@ -56,7 +56,7 @@ export const products: Product[] = [
         description: 'Smart LED bulb offering 16 million colors and shades of white. Control via Bluetooth or Hue Bridge for voice and app control.',
         price: 3899.00,
         category: 'Smart Lighting',
-        image: 'https://images.philips.com/is/image/PhilipsConsumer/929002216801-IMS-en_IN?$jpglarge$&wid=800',
+        image: 'https://via.placeholder.com/800x800.png?text=Hue+Smart+Bulb',
         brand: 'Philips Hue',
         specifications: {
             'Colors': '16 Million',
@@ -73,7 +73,7 @@ export const products: Product[] = [
         description: 'Wi-Fi enabled smart bulb with tunable white and multicolor options. Works with existing Wi-Fi, no hub required.',
         price: 899.00,
         category: 'Smart Lighting',
-        image: 'https://images.philips.com/is/image/PhilipsConsumer/929002449701-IMS-en_IN?$jpglarge$&wid=800',
+        image: 'https://via.placeholder.com/800x800.png?text=WiZ+Smart+LED',
         brand: 'Philips WiZ',
         specifications: {
             'Wattage': '9W',
@@ -89,7 +89,7 @@ export const products: Product[] = [
         description: 'Transform your space with a wider, sleeker and brighter batten. 40W StarBright LED batten with 4000 lumens for superior illumination in homes and offices.',
         price: 649.00,
         category: 'Tube Lights',
-        image: 'https://rukminim2.flixcart.com/image/832/832/xif0q/tube-light/t/n/1/-original-imah2ky9fhbkgzty.jpeg',
+        image: 'https://via.placeholder.com/800x800.png?text=LED+Batten',
         brand: 'Philips',
         specifications: {
             'Wattage': '40W',
@@ -106,7 +106,7 @@ export const products: Product[] = [
         description: 'Adjustable recessed LED spotlight with a clean beam and focused light. Ideal for accent lighting in modern interiors.',
         price: 650.00,
         category: 'Spotlights',
-        image: 'https://images.philips.com/is/image/PhilipsConsumer/5977631M3-IMS-en_IN?$jpglarge$&wid=800',
+        image: 'https://via.placeholder.com/800x800.png?text=Spotlight',
         brand: 'Philips',
         specifications: {
             'Wattage': '7W',
@@ -122,7 +122,7 @@ export const products: Product[] = [
         description: 'Surface mounted dome light providing soft, diffused lighting for general illumination in living areas.',
         price: 799.00,
         category: 'Ceiling Lights',
-        image: 'https://images.philips.com/is/image/PhilipsConsumer/919215850383-IMS-en_IN?$jpglarge$&wid=800',
+        image: 'https://via.placeholder.com/800x800.png?text=Dome+Ceiling+Light',
         brand: 'Philips',
         specifications: {
             'Wattage': '12W',
@@ -138,7 +138,7 @@ export const products: Product[] = [
         description: 'Compact and efficient surface-mounted downlight. Easy installation on standard ceilings without cutting.',
         price: 550.00,
         category: 'Ceiling Lights',
-        image: 'https://images.philips.com/is/image/PhilipsConsumer/5975231J0-IMS-en_IN?$jpglarge$&wid=800',
+        image: 'https://via.placeholder.com/800x800.png?text=Surface+Downlight',
         brand: 'Philips',
         specifications: {
             'Wattage': '6W',

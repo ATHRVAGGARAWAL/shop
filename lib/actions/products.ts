@@ -8,6 +8,7 @@ import { redirect } from 'next/navigation';
 import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import { nanoid } from 'nanoid';
+import type { NewProduct } from '@/lib/types';
 
 export async function createProduct(formData: FormData) {
     const name = formData.get('name') as string;
@@ -18,14 +19,14 @@ export async function createProduct(formData: FormData) {
     const stock = parseInt(formData.get('stock') as string);
     const isNew = formData.get('isNew') === 'on';
     const isBestseller = formData.get('isBestseller') === 'on';
-    const imageFile = formData.get('image') as File;
+    const imageFile = formData.get('image') as File | null;
 
     // Handle specifications (expected as JSON string from form)
     // Or we can parse individual fields if the form is structured that way.
     // For simplicity, let's assume the form sends a JSON string for now, or we default it.
     const specifications = formData.get('specifications') as string || '{}';
 
-    let imageUrl = '';
+    let imageUrl: string;
     if (imageFile && imageFile.size > 0) {
         const buffer = Buffer.from(await imageFile.arrayBuffer());
         const filename = `${nanoid()}-${imageFile.name.replace(/\s/g, '-')}`;
@@ -37,8 +38,9 @@ export async function createProduct(formData: FormData) {
         await writeFile(path.join(uploadDir, filename), buffer);
         imageUrl = `/uploads/${filename}`;
     } else {
-        // Default placeholder or error?
-        throw new Error('Image is required');
+        // Auto-generate a placeholder image URL when no image is uploaded
+        const label = encodeURIComponent(name.slice(0, 20));
+        imageUrl = `https://via.placeholder.com/800x800.png?text=${label}`;
     }
 
     await db.insert(products).values({
@@ -72,7 +74,7 @@ export async function updateProduct(id: string, formData: FormData) {
     const imageFile = formData.get('image') as File;
     const specifications = formData.get('specifications') as string || '{}';
 
-    const updateData: any = {
+    const updateData: Partial<NewProduct> = {
         name,
         description,
         price,

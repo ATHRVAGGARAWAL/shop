@@ -4,9 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, ShoppingBag, Plus, Minus, Trash2 } from 'lucide-react'
 import { useCart } from '@/lib/cart-context'
 import { Button } from '@/components/ui/button'
-import Image from 'next/image'
-import { openWhatsAppChat } from '@/lib/whatsapp'
-
 import { useRouter } from 'next/navigation'
 
 export function CartDrawer({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
@@ -94,7 +91,7 @@ export function CartDrawer({ isOpen, onClose }: { isOpen: boolean, onClose: () =
                                             <ShoppingBag className="h-8 w-8 text-slate-300" />
                                         </div>
                                         <h3 className="font-bold text-slate-900">Your cart is empty</h3>
-                                        <p className="text-slate-500 text-sm mt-2">Looks like you haven't added anything to your cart yet.</p>
+                                        <p className="text-slate-500 text-sm mt-2">Looks like you haven&apos;t added anything to your cart yet.</p>
                                         <Button className="mt-6" variant="outline" onClick={onClose}>Continue Shopping</Button>
                                     </div>
                                 )}

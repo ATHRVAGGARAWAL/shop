@@ -22,6 +22,18 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
     const [cart, setCart] = useState<CartItem[]>([]);
 
+    // Load from localStorage on mount
+    useEffect(() => {
+        const saved = window.localStorage.getItem('cart')
+        if (saved) {
+            try {
+                setCart(JSON.parse(saved) as CartItem[])
+            } catch (e) {
+                console.error('Failed to parse cart', e)
+            }
+        }
+    }, [])
+
     const addToCart = (product: Product, quantity: number) => {
         setCart(prevCart => {
             const existingItem = prevCart.find(item => item.id === product.id);
@@ -53,18 +65,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-    // Load cart from localStorage on mount
-    useEffect(() => {
-        const saved = localStorage.getItem('cart')
-        if (saved) {
-            try {
-                setCart(JSON.parse(saved))
-            } catch (e) {
-                console.error('Failed to parse cart', e)
-            }
-        }
-    }, [])
 
     // Save to localStorage whenever cart changes
     useEffect(() => {

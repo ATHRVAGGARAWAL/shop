@@ -21,7 +21,7 @@ export function ContactSection() {
                     className="text-center mb-32 flex flex-col items-center w-full"
                 >
                     <h2 className="text-6xl md:text-9xl font-display font-black text-white mb-8 uppercase tracking-tighter text-center">
-                        Let's <span className="text-industrial-orange">Connect</span>
+                        Let&apos;s <span className="text-industrial-orange">Connect</span>
                     </h2>
                     <p className="text-white/50 text-xl font-light tracking-wide uppercase text-center">
                         Heavy-duty support for your next big project.
