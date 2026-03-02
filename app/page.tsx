@@ -11,7 +11,7 @@ export default async function Home() {
   const allProducts = await db.select().from(products).all()
 
   return (
-    <main>
+    <main className="bg-[#f8fafc]">
       <Hero />
       <BrandMarquee />
       <ProductCategories />

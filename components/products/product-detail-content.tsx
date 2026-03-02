@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ShoppingBag, Plus, Minus, Heart, ShieldCheck, Zap, Package, ChevronRight } from 'lucide-react'
+import { ShoppingBag, Plus, Minus, Heart, ShieldCheck, Zap, Package, ChevronRight, Star, Truck, Shield, Play } from 'lucide-react'
 import { Container } from '@/components/ui/container'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
@@ -12,6 +12,7 @@ import { useToast } from '@/lib/toast-context'
 import { useWishlist } from '@/lib/wishlist-context'
 import { cn } from '@/lib/utils'
 import { ProductCard } from '@/components/products/product-card'
+import Link from 'next/link'
 
 interface ProductDetailContentProps {
     product: Product
@@ -20,9 +21,10 @@ interface ProductDetailContentProps {
 
 export default function ProductDetailContent({ product, relatedProducts }: ProductDetailContentProps) {
     const [quantity, setQuantity] = useState(1)
+    const [activeImage, setActiveImage] = useState(0)
     const { addToCart } = useCart()
     const { showToast } = useToast()
-    const { addToWishlist, isInWishlist, removeFromWishlist } = useWishlist()
+    const { addToWishlist, isInWishlist } = useWishlist()
     const inWishlist = isInWishlist(product.id)
 
     const handleAddToCart = () => {
@@ -30,153 +32,198 @@ export default function ProductDetailContent({ product, relatedProducts }: Produ
         showToast('Added to cart!', 'success')
     }
 
-    const handleWishlistToggle = () => {
-        if (inWishlist) {
-            removeFromWishlist(product.id)
-            showToast('Removed from wishlist', 'info')
-        } else {
-            addToWishlist(product)
-            showToast('Added to wishlist!', 'success')
-        }
-    }
-
     const specifications = typeof product.specifications === 'string'
         ? JSON.parse(product.specifications)
         : product.specifications
 
-    return (
-        <main className="flex-grow pb-32 md:py-24 bg-[#fafafa] relative overflow-hidden">
-            {/* Background Texture */}
-            <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
-                style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+    // Mock thumbnails for demonstration as per screenshot
+    const thumbnails = [product.image, product.image, product.image, 'video']
 
-            <Container className="relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-                    {/* Left: Image Section */}
-                    <div className="lg:col-span-7">
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                            className="relative aspect-square bg-white rounded-[3rem] overflow-hidden modern-shadow border border-slate-100 group"
-                        >
+    return (
+        <main className="flex-grow pb-24 pt-8 bg-white">
+            <Container>
+                {/* Breadcrumbs */}
+                <div className="flex items-center gap-2 text-sm text-slate-400 mb-8">
+                    <Link href="/" className="hover:text-slate-600">Home</Link>
+                    <ChevronRight className="h-3 w-3" />
+                    <Link href="/shop" className="hover:text-slate-600">Smart Lighting</Link>
+                    <ChevronRight className="h-3 w-3" />
+                    <span className="text-slate-900 font-medium">Bulbs</span>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
+                    {/* Left: Image Gallery */}
+                    <div className="space-y-6">
+                        <div className="relative aspect-square bg-[#f5f5f5] rounded-3xl overflow-hidden border border-slate-100">
                             <Image
                                 src={product.image}
                                 alt={product.name}
                                 fill
-                                className="object-contain p-12 md:p-20 transition-transform duration-700 group-hover:scale-110"
+                                className="object-contain p-12"
                                 priority
-                                sizes="(max-width: 1024px) 100vw, 60vw"
                             />
-                            <div className="absolute top-8 right-8 z-20">
+                        </div>
+                        <div className="grid grid-cols-4 gap-4">
+                            {thumbnails.map((thumb, i) => (
                                 <button
-                                    onClick={handleWishlistToggle}
-                                    className="p-4 bg-white/80 backdrop-blur-md modern-shadow rounded-full hover:bg-white transition-all active:scale-90"
+                                    key={i}
+                                    onClick={() => setActiveImage(i)}
+                                    className={cn(
+                                        "relative aspect-square rounded-xl overflow-hidden border-2 transition-all p-2 bg-slate-50",
+                                        activeImage === i ? "border-blue-600 bg-white" : "border-transparent hover:border-slate-200"
+                                    )}
                                 >
-                                    <Heart className={cn("h-6 w-6 transition-colors", inWishlist ? "fill-red-500 text-red-500" : "text-slate-400")} />
+                                    {thumb === 'video' ? (
+                                        <div className="w-full h-full flex items-center justify-center bg-slate-100 rounded-lg text-slate-400">
+                                            <Play className="h-6 w-6 fill-current" />
+                                        </div>
+                                    ) : (
+                                        <Image src={thumb} alt="Thumbnail" fill className="object-contain p-1" />
+                                    )}
                                 </button>
-                            </div>
-                        </motion.div>
+                            ))}
+                        </div>
                     </div>
 
-                    {/* Right: Info Section */}
-                    <div className="lg:col-span-5 flex flex-col animate-flowy-up">
-                        <div className="mb-12">
-                            <div className="flex items-center gap-3 mb-6">
-                                <span className="px-4 py-1.5 bg-accent-blue-soft text-accent-blue text-[10px] font-black uppercase tracking-[0.2em] rounded-full border border-accent-blue/10">
-                                    {product.brand}
-                                </span>
-                                <span className="text-slate-300"><ChevronRight className="h-4 w-4" /></span>
-                                <span className="px-4 py-1.5 bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-[0.2em] rounded-full">
-                                    {product.category}
-                                </span>
-                            </div>
+                    {/* Right: Product Info */}
+                    <div className="flex flex-col">
+                        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+                            {product.name}
+                        </h1>
 
-                            <h1 className="text-5xl md:text-7xl font-black text-industrial-blue uppercase tracking-tighter leading-[0.8] mb-8">
-                                {product.name.split(' ').map((word, i) => (
-                                    <span key={i} className={i === 0 ? "block" : "block text-transparent"} style={i === 0 ? {} : { WebkitTextStroke: '1px #1b365d' }}>{word} </span>
+                        <div className="flex items-center gap-4 mb-8">
+                            <div className="flex items-center gap-0.5">
+                                {[1, 2, 3, 4, 5].map((s) => (
+                                    <Star key={s} className="h-5 w-5 fill-orange-400 text-orange-400" />
                                 ))}
-                            </h1>
+                            </div>
+                            <span className="text-sm font-semibold text-slate-400">4.8 (1,240 reviews)</span>
+                        </div>
 
-                            <div className="flex items-center gap-6 p-6 bg-white rounded-3xl border border-slate-100 modern-shadow w-fit">
-                                <div className="flex flex-col">
-                                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">MSRP + GST</span>
-                                    <span className="text-4xl font-black text-industrial-blue tracking-tighter">₹{product.price.toLocaleString('en-IN')}</span>
+                        <div className="flex items-end gap-4 mb-8">
+                            <span className="text-5xl font-bold text-slate-900">₹{product.price.toLocaleString('en-IN')}</span>
+                            <span className="text-xl text-slate-300 line-through mb-1">₹{(product.price * 1.15).toLocaleString('en-IN')}</span>
+                            <span className="bg-green-100 text-green-600 text-[10px] font-bold px-3 py-1.5 rounded-md uppercase tracking-wider mb-1">
+                                SAVE 15%
+                            </span>
+                        </div>
+
+                        <p className="text-slate-500 text-lg leading-relaxed mb-10">
+                            Transform your home lighting with millions of colors and shades of white light. Control instantly via Bluetooth in one room or connect to a Hue Bridge to unlock the full suite of smart lighting features.
+                        </p>
+
+                        <div className="space-y-8">
+                            <div className="flex items-center gap-6">
+                                <span className="font-bold text-slate-900">Quantity</span>
+                                <div className="flex items-center bg-slate-50 rounded-xl p-1 border border-slate-100">
+                                    <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="w-10 h-10 flex items-center justify-center hover:bg-white rounded-lg transition-colors text-slate-400">
+                                        <Minus className="h-4 w-4" />
+                                    </button>
+                                    <span className="w-12 text-center font-bold text-slate-900">{quantity}</span>
+                                    <button onClick={() => setQuantity(quantity + 1)} className="w-10 h-10 flex items-center justify-center hover:bg-white rounded-lg transition-colors text-slate-400">
+                                        <Plus className="h-4 w-4" />
+                                    </button>
                                 </div>
-                                <div className="h-10 w-px bg-slate-100" />
-                                <div className="flex flex-col">
-                                    <span className="text-[10px] font-black text-green-500 uppercase tracking-widest animate-pulse">● Available</span>
-                                    <span className="text-[9px] font-bold text-slate-400 tracking-widest">In Stock</span>
+                            </div>
+
+                            <div className="flex gap-4">
+                                <Button
+                                    onClick={handleAddToCart}
+                                    className="flex-1 h-16 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-lg shadow-lg shadow-blue-600/20"
+                                >
+                                    <ShoppingCart className="mr-2 h-5 w-5" /> Add to Cart
+                                </Button>
+                                <Button
+                                    className="flex-1 h-16 bg-slate-900 hover:bg-black text-white font-bold rounded-xl text-lg"
+                                >
+                                    Buy Now
+                                </Button>
+                            </div>
+
+                            <div className="flex items-center gap-10 py-6">
+                                <div className="flex items-center gap-3 text-blue-600 font-bold text-sm">
+                                    <Truck className="h-5 w-5" /> Free Delivery
+                                </div>
+                                <div className="flex items-center gap-3 text-blue-600 font-bold text-sm">
+                                    <Shield className="h-5 w-5" /> 2-Year Warranty
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div className="prose prose-slate prose-sm max-w-none mb-12">
-                            <p className="text-slate-500 leading-relaxed text-lg font-medium border-l-4 border-accent-blue pl-8">
-                                {product.description}
+                {/* Info Sections */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 border-t border-slate-100 pt-16">
+                    <div className="lg:col-span-2 space-y-16">
+                        <section>
+                            <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-4">
+                                <div className="w-1 h-8 bg-blue-600 rounded-full" />
+                                Product Description
+                            </h2>
+                            <p className="text-slate-500 leading-relaxed">
+                                Set the mood with 16 million colors and a variety of white light options, from warm to cool. The Philips Hue White and Color Ambiance smart bulb allows you to create the perfect ambiance for any occasion. Whether you're throwing a party, reading a book, or just relaxing, you can easily customize your lighting to suit your needs.
+                                <br /><br />
+                                This bulb is Bluetooth-compatible for instant control in a single room. For a full smart home experience, connect it to a Philips Hue Bridge (sold separately) to enjoy features like out-of-home control, routines, and timers.
                             </p>
-                        </div>
+                        </section>
 
-                        {/* Specs Grid */}
-                        <div className="grid grid-cols-2 gap-4 mb-12">
-                            {Object.entries(specifications).map(([key, value]) => (
-                                <div key={key} className="p-5 bg-white rounded-3xl border border-slate-100 group hover:border-accent-blue/20 transition-all cursor-default">
-                                    <span className="block text-[9px] font-black text-slate-300 uppercase tracking-widest mb-1 group-hover:text-accent-blue transition-colors">{key}</span>
-                                    <span className="text-sm font-black text-industrial-blue">{value as string}</span>
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* Actions (Desktop) */}
-                        <div className="hidden md:flex items-center gap-6 mt-auto bg-industrial-blue p-3 rounded-[2rem] modern-shadow">
-                            <div className="flex items-center bg-white/10 rounded-full p-1">
-                                <button
-                                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                    className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-white/20 transition-all text-white"
-                                >
-                                    <Minus className="h-4 w-4" />
-                                </button>
-                                <span className="w-12 text-center font-black text-lg text-white">{quantity}</span>
-                                <button
-                                    onClick={() => setQuantity(quantity + 1)}
-                                    className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-white/20 transition-all text-white"
-                                >
-                                    <Plus className="h-4 w-4" />
-                                </button>
-                            </div>
-                            <Button
-                                onClick={handleAddToCart}
-                                size="lg"
-                                className="flex-grow h-14 rounded-full bg-safety-yellow text-void-black hover:bg-white text-[10px] font-black uppercase tracking-widest transition-all"
-                            >
-                                Add To Secure Cart
-                            </Button>
-                        </div>
-
-                        {/* Trust Badges */}
-                        <div className="flex justify-between mt-12 py-10 border-y border-slate-100">
-                            {[
-                                { icon: ShieldCheck, label: "Genuine", color: "text-accent-blue" },
-                                { icon: Zap, label: "Express", color: "text-safety-yellow" },
-                                { icon: Package, label: "Secure", color: "text-industrial-blue" }
-                            ].map((badge, i) => (
-                                <div key={i} className="flex flex-col items-center gap-3">
-                                    <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center">
-                                        <badge.icon className={cn("h-6 w-6", badge.color)} />
+                        <section>
+                            <h2 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-4">
+                                <div className="w-1 h-8 bg-blue-600 rounded-full" />
+                                Key Features
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {[
+                                    { icon: <Zap className="h-5 w-5" />, title: "App Control", desc: "Manage your lights from anywhere with the Hue app." },
+                                    { icon: <SlidersHorizontal className="h-5 w-5" />, title: "Voice Control", desc: "Works with Alexa, Google Assistant, and Apple HomeKit." },
+                                    { icon: <Star className="h-5 w-5" />, title: "16 Million Colors", desc: "Unlimited possibilities for ambient atmosphere." },
+                                    { icon: <Clock className="h-5 w-5" />, title: "Smart Scheduling", desc: "Set lights to turn on or off at specific times." }
+                                ].map((feature, i) => (
+                                    <div key={i} className="p-6 bg-slate-50 rounded-2xl flex items-start gap-4 hover:bg-blue-50 transition-colors cursor-default">
+                                        <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-blue-600 border border-slate-100">
+                                            {feature.icon}
+                                        </div>
+                                        <div>
+                                            <h3 className="font-bold text-slate-900 mb-1">{feature.title}</h3>
+                                            <p className="text-sm text-slate-500 leading-snug">{feature.desc}</p>
+                                        </div>
                                     </div>
-                                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">{badge.label}</span>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
+                        </section>
+                    </div>
+
+                    <div className="space-y-8">
+                        <div className="p-8 bg-white border border-slate-100 rounded-2xl shadow-sm sticky top-24">
+                            <h2 className="text-xl font-bold text-slate-900 mb-8">Technical Specifications</h2>
+                            <div className="space-y-6">
+                                {Object.entries(specifications).map(([key, value]) => (
+                                    <div key={key} className="flex justify-between items-center py-4 border-b border-slate-50 last:border-0">
+                                        <span className="text-slate-400 font-medium">{key}</span>
+                                        <span className="text-slate-900 font-bold">{value as string}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            <button className="w-full mt-8 py-4 text-blue-600 font-bold text-sm border-t border-slate-50 hover:text-blue-700 transition-colors flex items-center justify-center gap-2">
+                                Download User Manual <ChevronRight className="h-4 w-4 rotate-90" />
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 {/* Related Products */}
                 {relatedProducts.length > 0 && (
-                    <div className="mt-32">
-                        <div className="flex items-center gap-6 mb-12">
-                            <h2 className="text-4xl font-black text-industrial-blue uppercase tracking-tighter">Similar <span className="text-transparent" style={{ WebkitTextStroke: '1.5px #1b365d' }}>Items</span></h2>
-                            <div className="h-px flex-grow bg-slate-100" />
+                    <div className="mt-32 pb-24">
+                        <div className="flex items-center justify-between mb-12">
+                            <h2 className="text-3xl font-bold text-slate-900">Related Products</h2>
+                            <div className="flex gap-2">
+                                <button className="p-3 rounded-full border border-slate-100 text-slate-400 hover:text-blue-600 hover:border-blue-600 transition-all">
+                                    <ChevronRight className="h-5 w-5 rotate-180" />
+                                </button>
+                                <button className="p-3 rounded-full border border-slate-100 text-slate-400 hover:text-blue-600 hover:border-blue-600 transition-all">
+                                    <ChevronRight className="h-5 w-5" />
+                                </button>
+                            </div>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                             {relatedProducts.map((relProduct) => (
@@ -186,26 +233,8 @@ export default function ProductDetailContent({ product, relatedProducts }: Produ
                     </div>
                 )}
             </Container>
-
-            {/* Mobile Sticky CTA */}
-            <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 p-6 animate-flowy-up mb-20">
-                <div className="glass-dark modern-shadow rounded-[2.5rem] p-4 flex items-center justify-between gap-4 border border-white/10 backdrop-blur-2xl">
-                    <div className="flex flex-col pl-4">
-                        <span className="text-[9px] font-black text-white/40 uppercase tracking-widest mb-1">Total Due</span>
-                        <span className="text-2xl font-black text-white tracking-tighter">₹{product.price.toLocaleString('en-IN')}</span>
-                    </div>
-                    <Button
-                        onClick={handleAddToCart}
-                        className="h-16 px-10 rounded-full bg-safety-yellow text-void-black font-black uppercase tracking-widest text-[10px] active:scale-95 transition-all shadow-2xl"
-                    >
-                        Buy Now
-                    </Button>
-                </div>
-            </div>
-
-            {/* Background Glows */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-blue/5 blur-[150px] rounded-full pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-safety-yellow/5 blur-[150px] rounded-full pointer-events-none" />
         </main>
     )
 }
+
+import { SlidersHorizontal, Clock, ShoppingCart } from 'lucide-react'

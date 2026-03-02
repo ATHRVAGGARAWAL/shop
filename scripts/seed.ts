@@ -4,6 +4,8 @@ import { products as initialProducts } from '../lib/products';
 import { eq } from 'drizzle-orm';
 
 async function main() {
+    console.log('Refreshing database...');
+    await db.delete(products).run();
     console.log('Seeding database...');
 
     for (const product of initialProducts) {

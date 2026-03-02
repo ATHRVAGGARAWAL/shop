@@ -1,4 +1,4 @@
-export type Category = 'LED Bulbs' | 'Smart Lighting' | 'Tube Lights' | 'Ceiling Lights' | 'Spotlights';
+export type Category = 'Lighting' | 'Power & Sockets' | 'Safety Systems' | 'Industrial' | 'Smart Home';
 
 export interface Product {
     id: string;
@@ -16,136 +16,133 @@ export interface Product {
 
 export const products: Product[] = [
     {
-        id: 'philips-9w-led-b22',
-        name: 'Philips AceSaver 9W LED Bulb (Golden Yellow)',
-        description: 'Energy-efficient 9W AceSaver LED bulb with E27 base and EyeComfort technology. Provides warm golden yellow illumination with up to 87% energy saving.',
-        price: 99.00,
-        category: 'LED Bulbs',
-        image: 'https://via.placeholder.com/800x800.png?text=Philips+Bulb',
+        id: 'philips-9w-led-bulb',
+        name: 'Philips AceSaver 9W LED Bulb',
+        description: 'Energy-efficient 9W AceSaver LED bulb with B22 base and EyeComfort technology. Provides cool daylight illumination with significant energy savings.',
+        price: 145.00,
+        category: 'Lighting',
+        image: '/images/philips-bulb.jpg',
         brand: 'Philips',
         specifications: {
             'Wattage': '9W',
-            'Base': 'E27',
-            'Color': '3000K (Golden Yellow)',
+            'Base': 'B22',
+            'Color': 'Cool Daylight',
             'Lumens': '825lm',
-            'Energy Saving': 'Up to 87%',
-            'Technology': 'EyeComfort'
+            'Warranty': '2 Years'
         },
-        stock: 500,
+        stock: 1200,
         isBestseller: true
     },
     {
-        id: 'philips-10w-t-bulb',
-        name: 'Philips T-Bulb 10W (Cool Daylight)',
-        description: 'Innovative T-shaped LED bulb with a wider light spread and flexible swivelling head for customizable lighting.',
-        price: 299.00,
-        category: 'LED Bulbs',
-        image: 'https://via.placeholder.com/800x800.png?text=T-Bulb',
-        brand: 'Philips',
+        id: 'anchor-penta-switch',
+        name: 'Anchor Penta 6A 1 Way Switch',
+        description: 'High-quality 1-way switch from Anchor Penta series. Durable, sleek design perfect for modern homes and offices.',
+        price: 25.00,
+        category: 'Power & Sockets',
+        image: '/images/anchor-switch.jpg',
+        brand: 'Anchor',
         specifications: {
-            'Wattage': '10W',
-            'Base': 'B22',
-            'Shape': 'T-Bulb',
-            'Feature': 'Swivelling Head'
+            'Current': '6A',
+            'Type': '1-Way',
+            'Series': 'Penta',
+            'Color': 'White'
         },
-        stock: 200
+        stock: 5000,
+        isBestseller: true
     },
     {
-        id: 'philips-hue-wca-bulb',
-        name: 'Philips Hue White & Color Ambiance Bulb',
-        description: 'Smart LED bulb offering 16 million colors and shades of white. Control via Bluetooth or Hue Bridge for voice and app control.',
-        price: 3899.00,
-        category: 'Smart Lighting',
-        image: 'https://via.placeholder.com/800x800.png?text=Hue+Smart+Bulb',
-        brand: 'Philips Hue',
+        id: 'havells-fabio-socket',
+        name: 'Havells Fabio 16A 3-Pin Socket',
+        description: 'Premium 16A socket from Havells Fabio range. Enhanced safety with child shutter and robust build.',
+        price: 185.00,
+        category: 'Power & Sockets',
+        image: '/images/havells-socket.jpg',
+        brand: 'Havells',
         specifications: {
-            'Colors': '16 Million',
-            'Control': 'App & Voice',
-            'Base': 'E27',
-            'Dimmable': 'Yes'
+            'Current': '16A',
+            'Type': '3-Pin',
+            'Series': 'Fabio',
+            'Safety': 'Child Shutter'
         },
-        stock: 50,
+        stock: 800
+    },
+    {
+        id: 'polycab-wire-2.5sqmm',
+        name: 'Polycab 2.5 Sq.mm FR Wire (90m)',
+        description: 'High-performance Flame Retardant (FR) PVC insulated wire. Ideal for heavy loads like ACs and geysers.',
+        price: 2450.00,
+        category: 'Industrial',
+        image: '/images/polycab-wire.jpg',
+        brand: 'Polycab',
+        specifications: {
+            'Size': '2.5 Sq.mm',
+            'Length': '90m',
+            'Type': 'FR PVC',
+            'Voltage': '1100V'
+        },
+        stock: 250,
         isNew: true
     },
     {
-        id: 'philips-wiz-9w-smart',
-        name: 'Philips WiZ Smart LED Bulb 9W',
-        description: 'Wi-Fi enabled smart bulb with tunable white and multicolor options. Works with existing Wi-Fi, no hub required.',
-        price: 899.00,
-        category: 'Smart Lighting',
-        image: 'https://via.placeholder.com/800x800.png?text=WiZ+Smart+LED',
-        brand: 'Philips WiZ',
+        id: 'philips-hue-starter-kit',
+        name: 'Philips Hue Smart Lighting Starter Kit',
+        description: 'Transform your home with the Philips Hue Smart Lighting Kit. includes 3 bulbs and a bridge for full smart control.',
+        price: 12999.00,
+        category: 'Smart Home',
+        image: '/images/hue-kit.jpg',
+        brand: 'Philips Hue',
         specifications: {
-            'Wattage': '9W',
-            'Connectivity': 'Wi-Fi',
-            'Feature': 'Tunable White & Color',
-            'Base': 'B22'
+            'Colors': '16 Million',
+            'Connectivity': 'Zigbee/Bluetooth',
+            'Voice Control': 'Alexa, Google, Siri'
         },
-        stock: 150
+        stock: 45,
+        isNew: true
     },
     {
-        id: 'philips-starbright-batten-40w',
-        name: 'Philips StarBright LED Batten 40W',
-        description: 'Transform your space with a wider, sleeker and brighter batten. 40W StarBright LED batten with 4000 lumens for superior illumination in homes and offices.',
-        price: 649.00,
-        category: 'Tube Lights',
-        image: 'https://via.placeholder.com/800x800.png?text=LED+Batten',
-        brand: 'Philips',
+        id: 'digital-multimeter-pro',
+        name: 'Pro-Tech Digital Multimeter',
+        description: 'Professional grade digital multimeter for accurate voltage, current, and resistance measurements.',
+        price: 3499.00,
+        category: 'Safety Systems',
+        image: '/images/multimeter.jpg',
+        brand: 'Pro-Tech',
         specifications: {
-            'Wattage': '40W',
-            'Length': '4 Feet',
-            'Lumens': '4000lm',
-            'Color': '6500K (Cool Daylight)',
-            'Design': '2x Wider, 2x Brighter, 3x Sleek'
-        },
-        stock: 300
-    },
-    {
-        id: 'philips-pomeron-spotlight-7w',
-        name: 'Philips Pomeron LED Spotlight 7W',
-        description: 'Adjustable recessed LED spotlight with a clean beam and focused light. Ideal for accent lighting in modern interiors.',
-        price: 650.00,
-        category: 'Spotlights',
-        image: 'https://via.placeholder.com/800x800.png?text=Spotlight',
-        brand: 'Philips',
-        specifications: {
-            'Wattage': '7W',
-            'Cutout': '70mm',
-            'Adjustable Head': 'Yes',
-            'Color': 'Warm White'
-        },
-        stock: 100
-    },
-    {
-        id: 'philips-dome-ceiling-light',
-        name: 'Philips 12W LED Dome Ceiling Light',
-        description: 'Surface mounted dome light providing soft, diffused lighting for general illumination in living areas.',
-        price: 799.00,
-        category: 'Ceiling Lights',
-        image: 'https://via.placeholder.com/800x800.png?text=Dome+Ceiling+Light',
-        brand: 'Philips',
-        specifications: {
-            'Wattage': '12W',
-            'Mounting': 'Surface',
-            'Shape': 'Round',
-            'Color': 'Cool Day Light'
-        },
-        stock: 80
-    },
-    {
-        id: 'philips-star-surface-downlight',
-        name: 'Philips Star Surface Downlight 6W',
-        description: 'Compact and efficient surface-mounted downlight. Easy installation on standard ceilings without cutting.',
-        price: 550.00,
-        category: 'Ceiling Lights',
-        image: 'https://via.placeholder.com/800x800.png?text=Surface+Downlight',
-        brand: 'Philips',
-        specifications: {
-            'Wattage': '6W',
-            'Shape': 'Square/Round',
-            'Finish': 'White',
-            'Type': 'Surface Mount'
+            'Display': 'LCD with Backlight',
+            'Accuracy': '0.5%',
+            'Safety Rating': 'CAT III 600V'
         },
         stock: 120
+    },
+    {
+        id: 'industrial-stabilizer-5kva',
+        name: 'Microtek 5KVA Mainline Stabilizer',
+        description: 'Powerful voltage stabilizer for complete home protection. Digital display and high-voltage cutoff.',
+        price: 8500.00,
+        category: 'Industrial',
+        image: '/images/stabilizer.jpg',
+        brand: 'Microtek',
+        specifications: {
+            'Capacity': '5KVA',
+            'Input Range': '90V - 300V',
+            'Output': '220V +/- 10%'
+        },
+        stock: 30
+    },
+    {
+        id: 'solar-panel-100w',
+        name: 'Luminous 100W Polycrystalline Solar Panel',
+        description: 'High-efficiency solar panel for off-grid and hybrid systems. Durable aluminum frame and tempered glass.',
+        price: 5500.00,
+        category: 'Industrial',
+        image: '/images/solar-panel.jpg',
+        brand: 'Luminous',
+        specifications: {
+            'Wattage': '100W',
+            'Type': 'Polycrystalline',
+            'Warranty': '25 Years'
+        },
+        stock: 60,
+        isNew: true
     }
 ];

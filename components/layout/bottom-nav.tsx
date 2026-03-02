@@ -20,9 +20,11 @@ export function BottomNav() {
 
     return (
         <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-[400px]">
-            <nav className="glass-dark modern-shadow rounded-full px-6 py-3 flex items-center justify-between">
+            <nav className="bg-slate-900/90 backdrop-blur-xl border border-white/10 shadow-2xl rounded-full px-6 py-3 flex items-center justify-between">
                 {navItems.map((item) => {
-                    const isActive = pathname === item.href
+                    const isActive =
+                        pathname === item.href ||
+                        (item.href !== "/" && pathname.startsWith(item.href))
                     return (
                         <Link
                             key={item.name}
@@ -31,11 +33,11 @@ export function BottomNav() {
                         >
                             <div className={cn(
                                 "p-2 rounded-full transition-all duration-300",
-                                isActive ? "bg-safety-yellow text-void-black scale-110" : "text-white/60 hover:text-white"
+                                isActive ? "bg-blue-600 text-white scale-110 shadow-lg shadow-blue-600/20" : "text-white/40 hover:text-white"
                             )}>
                                 <item.icon className="h-5 w-5" />
                                 {item.badge !== undefined && item.badge > 0 && (
-                                    <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white border-2 border-void-black">
+                                    <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-black text-white border-2 border-slate-900">
                                         {item.badge}
                                     </span>
                                 )}
@@ -43,7 +45,7 @@ export function BottomNav() {
                             {isActive && (
                                 <motion.div
                                     layoutId="bottom-nav-active"
-                                    className="absolute -bottom-1 w-1 h-1 bg-safety-yellow rounded-full"
+                                    className="absolute -bottom-1 w-1 h-1 bg-blue-600 rounded-full"
                                 />
                             )}
                         </Link>

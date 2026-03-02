@@ -8,7 +8,7 @@ const brands = [
 
 export function BrandMarquee() {
     return (
-        <div className="bg-industrial-blue py-10 overflow-hidden border-y border-white/5">
+        <div className="bg-slate-50 py-12 overflow-hidden border-y border-slate-100">
             <div className="flex whitespace-nowrap">
                 <motion.div
                     initial={{ x: 0 }}
@@ -18,12 +18,12 @@ export function BrandMarquee() {
                         repeat: Infinity,
                         ease: "linear"
                     }}
-                    className="flex gap-16 items-center px-8"
+                    className="flex gap-20 items-center px-8"
                 >
                     {[...brands, ...brands].map((brand, index) => (
                         <span
                             key={index}
-                            className="text-white/40 text-2xl md:text-3xl font-black uppercase tracking-[0.2em] italic hover:text-amber-500 transition-colors cursor-default"
+                            className="text-blue-600/20 text-3xl md:text-5xl font-black uppercase tracking-[0.3em] transition-colors cursor-default"
                         >
                             {brand}
                         </span>
